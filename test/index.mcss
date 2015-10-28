@@ -1,0 +1,5 @@
+$test = white;
+
+.m-modal {
+    background: $test;
+}

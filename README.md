@@ -1,2 +1,2 @@
 # gulp-mcss
-a gulp plugin for mcss
+MCSS plugin for gulp
