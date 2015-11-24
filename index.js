@@ -5,9 +5,14 @@ var mcss = require('mcss');
 var PluginError = gutil.PluginError;
 
 var extend = function(o1, o2, override) {
-    for(var i in o2)
-        if(override || o1[i] === undefined)
-            o1[i] = o2[i];
+    o1 = o1 || {};
+    if (o2) {
+        for (var i in o2) {
+            if (o2.hasOwnProperty(i) && (override || o1[i] === undefined)) {
+                o1[i] = o2[i];
+            }
+        }
+    }
     return o1;
 }
 
@@ -16,7 +21,7 @@ module.exports = function (opt) {
         if (file.isNull()) return cb(null, file); 
         if (file.isStream()) return cb(new PluginError('gulp-mcss', 'Streaming not supported'));
 
-        var options = extend(opt || {}, {
+        var options = extend(opt, {
             filename: file.path
         });
 
@@ -26,7 +31,7 @@ module.exports = function (opt) {
                 file.path = file.path.replace(/\.mcss$/, '.css');
                 cb(null, file);
             }).fail(function(err){
-                mcss.error.format(err)
+                mcss.error.format(err);
                 console.log(err.message);
                 cb(null, file);
             });
