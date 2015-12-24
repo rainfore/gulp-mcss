@@ -27,7 +27,7 @@ module.exports = function (opt) {
         });
         var self = this;
         try {
-            var data = mcss(options).translate().done(function (text) {
+            mcss(options).translate().done(function (text) {
                 file.contents = new Buffer(text);
                 file.path = replaceExt(file.path, '.css');
                 self.push(file);

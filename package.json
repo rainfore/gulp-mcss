@@ -1,21 +1,33 @@
 {
   "name": "gulp_mcss",
   "description": "MCSS plugin for gulp",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "author": "Sensen <rainforest92@126.com>",
   "main": "./index.js",
-  "repository": "git://github.com/rainfore/gulp-mcss.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rainfore/gulp-mcss.git"
+  },
   "bugs": {
     "url": "http://github.com/rainfore/gulp-mcss/issues"
   },
+  "homepage": "https://github.com/rainfore/gulp-mcss",
   "license": "MIT",
   "keywords": [
+    "gulpplugin",
     "gulp",
     "mcss"
   ],
   "tags": [
+    "gulpplugin",
     "gulp",
     "mcss"
+  ],
+  "contributors": [
+    {
+      "name": "Capasky",
+      "email": "capasky@live.com"
+    }
   ],
   "dependencies": {
     "gulp-util": "^3.0.4",
