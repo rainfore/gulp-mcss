@@ -18,9 +18,10 @@
     "mcss"
   ],
   "dependencies": {
+    "gulp-util": "^3.0.4",
     "mcss": "^0.5.1",
-    "through2": "^2.0.0",
-    "gulp-util": "^3.0.4"
+    "replace-ext": "0.0.1",
+    "through2": "^2.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0"
