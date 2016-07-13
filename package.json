@@ -1,7 +1,7 @@
 {
   "name": "gulp_mcss",
   "description": "MCSS plugin for gulp",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "Sensen <rainforest92@126.com>",
   "main": "./index.js",
   "repository": {
@@ -24,10 +24,7 @@
     "mcss"
   ],
   "contributors": [
-    {
-      "name": "Capasky",
-      "email": "capasky@live.com"
-    }
+    "Capasky <capasky@live.com>"
   ],
   "dependencies": {
     "gulp-util": "^3.0.7",

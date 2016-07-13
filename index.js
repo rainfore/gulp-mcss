@@ -33,7 +33,7 @@ module.exports = function(opt) {
             }).fail(function(err) {
                 mcss.error.format(err);
                 console.log(err.message);
-                cb(null, file);
+                cb();
             });
         } catch (err) {
             cb(new PluginError('gulp_mcss', err));
