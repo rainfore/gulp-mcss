@@ -1,36 +1,28 @@
-var through = require('through2');
-var gutil = require('gulp-util');
-var mcss = require('mcss');
-var replaceExt = require('replace-ext');
-var PluginError = gutil.PluginError;
+'use strict';
 
-var extend = function(o1, o2, override) {
-    o1 = o1 || {};
-    if (o2) {
-        for (var i in o2) {
-            if (o2.hasOwnProperty(i) && (override || o1[i] === undefined)) {
-                o1[i] = o2[i];
-            }
-        }
-    }
-    return o1;
-}
+const through = require('through2');
+const gutil = require('gulp-util');
+const mcss = require('mcss');
+const replaceExt = require('replace-ext');
+const PluginError = gutil.PluginError;
 
-module.exports = function(opt) {
-    return through.obj(function(file, enc, cb) {
-        if (file.isNull()) return cb(null, file);
-        if (file.isStream()) return cb(new PluginError('gulp_mcss', 'Streaming not supported'));
+module.exports = function (opt) {
+    return through.obj((file, enc, cb) => {
+        if (file.isNull())
+            return cb(null, file);
+        if (file.isStream())
+            return cb(new PluginError('gulp_mcss', 'Streaming not supported'));
 
-        var options = extend(opt, {
+        const options = Object.assign({
             filename: file.path
-        });
+        }, opt);
 
         try {
-            mcss(options).translate().done(function(text) {
+            mcss(options).translate().done((text) => {
                 file.contents = new Buffer(text);
                 file.path = replaceExt(file.path, '.css');
                 cb(null, file);
-            }).fail(function(err) {
+            }).fail((err) => {
                 mcss.error.format(err);
                 console.log(err.message);
                 cb();
