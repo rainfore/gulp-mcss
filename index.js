@@ -1,5 +1,6 @@
 'use strict';
 
+const path = require('path');
 const through = require('through2');
 const gutil = require('gulp-util');
 const mcss = require('mcss');
@@ -7,7 +8,7 @@ const replaceExt = require('replace-ext');
 const PluginError = gutil.PluginError;
 
 module.exports = function (opt) {
-    return through.obj((file, enc, cb) => {
+    let program = through.obj((file, enc, cb) => {
         if (file.isNull())
             return cb(null, file);
         if (file.isStream())
@@ -17,7 +18,23 @@ module.exports = function (opt) {
             filename: file.path
         }, opt);
 
+        let include;
+        if(options.include){
+            if(!Array.isArray(opt.include)) opt.include = [opt.include];
+            include = opt.include.map(function(p) {
+                return path.resolve(process.cwd(), p);
+            });
+        }
+
+        let exclude = opt.exclude ? new RegExp(opt.exclude, 'ig') : undefined;
+
         try {
+            let instance = mcss(options);
+
+            if(include) instance.include(include);
+            
+            if(exclude.test(file.path)) return false;
+
             mcss(options).translate().done((text) => {
                 file.contents = new Buffer(text);
                 file.path = replaceExt(file.path, '.css');
@@ -31,4 +48,5 @@ module.exports = function (opt) {
             cb(new PluginError('gulp_mcss', err));
         }
     });
+    return program;
 };
