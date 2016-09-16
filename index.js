@@ -19,7 +19,7 @@ module.exports = function (opt) {
         }, opt);
 
         let include;
-        if(options.include){
+        if (options.include) {
             if(!Array.isArray(opt.include)) opt.include = [opt.include];
             include = opt.include.map(function(p) {
                 return path.resolve(process.cwd(), p);
@@ -31,9 +31,13 @@ module.exports = function (opt) {
         try {
             let instance = mcss(options);
 
-            if(include) instance.include(include);
+            if (include) {
+                instance.include(include);
+            }
             
-            if(exclude.test(file.path)) return false;
+            if (exclude && exclude.test(file.path)) {
+                return false;   
+            }
 
             mcss(options).translate().done((text) => {
                 file.contents = new Buffer(text);
