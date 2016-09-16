@@ -12,7 +12,13 @@ var mcss = require('gulp_mcss');
 
 gulp.task('mcss', function() {
     return gulp.src('./*.mcss')
-    .pipe(mcss())
+    .pipe(mcss({
+    	include: [
+    		'./include'
+    	],
+    	exclude: 'index2.mcss',
+    	format: 1
+    }))
     .pipe(gulp.dest('.'));
 });
 ```
